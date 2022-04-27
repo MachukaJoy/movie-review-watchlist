@@ -12,7 +12,7 @@ def index():
   message = "Hello Joy, keep pushing"
   return render_template('index.html', message=message)
 
-@app.route('/movie/<movie_id>')
+@app.route('/movie/<int:movie_id>')
 def movie(movie_id):
 
   '''
