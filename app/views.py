@@ -1,6 +1,7 @@
 from email import message
 from flask import render_template
 from app import app
+from .request import get_movies
 
 # views
 @app.route('/')
@@ -11,8 +12,11 @@ def index():
   '''
   # message = "Hello Joy, keep pushing"
   # return render_template('index.html', message=message)
+  # Getting popular movie
+  popular_movies = get_movies('popular')
+  print(popular_movies)
   title = 'Home - Welcome to The best Movie Review Website Online'
-  return render_template('index.html', title = title)
+  return render_template('index.html', title = title,popular=popular_movies)
 
 
 @app.route('/movie/<int:movie_id>')
