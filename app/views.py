@@ -1,10 +1,14 @@
 from email import message
 from flask import render_template, request,redirect,url_for
 from app import app
+from app.models import reviews
 from .request import get_movies, get_movie, search_movie
-from .models import review
 from .forms import ReviewForm
-Review = review.Review
+from .models import reviews
+
+Review = reviews.Review
+
+
 
 # views
 @app.route('/')
@@ -38,7 +42,9 @@ def movie(id):
   '''
   movie = get_movie(id)
   title = f'{movie.title}'
-  return render_template('movie.html',title=title, movie=movie)
+  reviews = Review.get_reviews(movie.id)
+  
+  return render_template('movie.html',title=title, movie=movie, reviews=reviews)
 
 @app.route('/search/<movie_name>')
 def search(movie_name):
@@ -50,6 +56,7 @@ def search(movie_name):
     searched_movies = search_movie(movie_name_format)
     title = f'search results for {movie_name}'
     return render_template('search.html',movies = searched_movies)
+
 
 @app.route('/movie/review/new/<int:id>', methods = ['GET','POST'])
 def new_review(id):
