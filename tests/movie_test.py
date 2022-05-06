@@ -1,6 +1,7 @@
+import app
 import unittest
-from models import movie
-Movie = movie.Movie
+from ..app.models import Movie
+
 
 class MovieTest(unittest.TestCase):
     '''
